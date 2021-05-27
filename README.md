@@ -12,3 +12,5 @@ In this repo, I have included the training codes, generated weights, and Jupyter
 The training paradigm with the best results are marked accordingly before the directory name.
 
 The **BBA** and **Villin** systems were trained to completion. As of writing this, **PRB** and **DNA** still have some issues.
+
+**BBA** was trained with the <em>DESRES-Trajectory_1FME-1-protein</em>
