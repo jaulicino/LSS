@@ -1,0 +1,153 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# prototyping LSS pipeline"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## setup"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "%load_ext autoreload\n",
+    "%autoreload 2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/home/joseph/anaconda3/envs/lss/lib/python3.6/site-packages/Bio/KDTree/__init__.py:25: BiopythonDeprecationWarning: Bio.KDTree has been deprecated, and we intend to remove it in a future release of Biopython. Please use Bio.PDB.kdtrees instead, which is functionally very similar.\n",
+      "  BiopythonDeprecationWarning)\n",
+      "/home/joseph/anaconda3/envs/lss/lib/python3.6/site-packages/MDAnalysis/due.py:88: UserWarning: No module named 'duecredit'\n",
+      "  warnings.warn(str(err))\n"
+     ]
+    }
+   ],
+   "source": [
+    "import os, pickle, time, glob, sys, copy\n",
+    "import numpy as np \n",
+    "import scipy\n",
+    "import mdtraj as md \n",
+    "import MDAnalysis as mda\n",
+    "import nglview as nv \n",
+    "from ipywidgets import interactive, VBox\n",
+    "import sklearn.preprocessing as pre\n",
+    "from sklearn.cluster import KMeans\n",
+    "from sklearn.metrics import silhouette_samples, silhouette_score\n",
+    "import matplotlib.pyplot as plt\n",
+    "import matplotlib.cm as cm\n",
+    "from mpl_toolkits.mplot3d import Axes3D\n",
+    "import pyemma as py \n",
+    "from pyemma.util.contexts import settings\n",
+    "import warnings\n",
+    "warnings.filterwarnings('ignore')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'\n",
+    "os.environ['CUDA_VISIBLE_DEVICES'] = '1' "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Using TensorFlow backend.\n"
+     ]
+    }
+   ],
+   "source": [
+    "import tensorflow as tf\n",
+    "import keras.backend as K\n",
+    "from keras.models import load_model\n",
+    "from keras.callbacks import EarlyStopping\n",
+    "config = tf.ConfigProto()\n",
+    "config.gpu_options.allow_growth = True\n",
+    "K.tensorflow_backend.set_session(tf.Session(config=config))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "import sys\n",
+    "#__all__ = [\"hde\", \"propagator\", \"molgen\"]\n",
+    "from hde import *#__init__, hde, propagator, molgen, analysis #"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## locating trajectory data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/media/joseph/Memorex USB/liew/Joe_Liew_LSS/Joe_Liew_LSS/BBA/3_DESRES-Trajectory_1FME-1-protein/DESRES-Trajectory_1FME-1-protein/1FME-1-protein/system.pdb\n",
+      "/media/joseph/Memorex USB/liew/Joe_Liew_LSS/Joe_Liew_LSS/BBA/3_DESRES-Trajectory_1FME-1-protein/DESRES-Trajectory_1FME-1-protein/1FME-1-protein/system.pdb\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "f062cabfec224bbf98867d03763df048",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "NGLWidget()"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# DESRES Chignolin at 340 K\n",
+    "# Lindorff-Larsen et al. Science 334 6055 517-520 (2011)\n",
+    "# 200 ps time steps\n",
+    "# 53 dcd files each conataining 10,000 frames at 200 ps time steps = 53*10,000*200 = 106 us\n",
+    "\n",
+    "timestep = 200 # ps\n",
+    "\n",
+    "

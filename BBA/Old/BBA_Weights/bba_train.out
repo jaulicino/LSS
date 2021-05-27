@@ -1,0 +1,44 @@
+/home/jaulicino/anaconda2/envs/lss/lib/python3.6/site-packages/Bio/KDTree/__init__.py:25: BiopythonDeprecationWarning: Bio.KDTree has been deprecated, and we intend to remove it in a future release of Biopython. Please use Bio.PDB.kdtrees instead, which is functionally very similar.
+  BiopythonDeprecationWarning)
+/home/jaulicino/anaconda2/envs/lss/lib/python3.6/site-packages/MDAnalysis/due.py:88: UserWarning: No module named 'duecredit'
+  warnings.warn(str(err))
+
+Bad key "text.kerning_factor" on line 4 in
+/home/jaulicino/anaconda2/envs/lss/lib/python3.6/site-packages/matplotlib/mpl-data/stylelib/_classic_test_patch.mplstyle.
+You probably need to get an updated matplotlibrc file from
+http://github.com/matplotlib/matplotlib/blob/master/matplotlibrc.template
+or from the matplotlib source distribution
+Using TensorFlow backend.
+WARNING:tensorflow:From bba_weights_2.py:47: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From bba_weights_2.py:49: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+2021-02-18 18:32:52.711342: I tensorflow/core/platform/cpu_feature_guard.cc:145] This TensorFlow binary is optimized with Intel(R) MKL-DNN to use the following CPU instructions in performance critical operations:  SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+To enable them in non-MKL-DNN operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-02-18 18:32:53.269033: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2400000000 Hz
+2021-02-18 18:32:53.270035: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5652cb3cff70 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-02-18 18:32:53.270140: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+OMP: Info #154: KMP_AFFINITY: Initial OS proc set respected: 1-4
+OMP: Info #214: KMP_AFFINITY: decoding x2APIC ids.
+OMP: Info #156: KMP_AFFINITY: 4 available OS procs
+OMP: Info #157: KMP_AFFINITY: Uniform topology
+OMP: Info #285: KMP_AFFINITY: topology layer "LL cache" is equivalent to "socket".
+OMP: Info #285: KMP_AFFINITY: topology layer "L3 cache" is equivalent to "socket".
+OMP: Info #285: KMP_AFFINITY: topology layer "L2 cache" is equivalent to "core".
+OMP: Info #285: KMP_AFFINITY: topology layer "L1 cache" is equivalent to "core".
+OMP: Info #285: KMP_AFFINITY: topology layer "thread" is equivalent to "core".
+OMP: Info #191: KMP_AFFINITY: 1 socket x 4 cores/socket x 1 thread/core (4 total cores)
+OMP: Info #216: KMP_AFFINITY: OS proc to physical thread map:
+OMP: Info #171: KMP_AFFINITY: OS proc 1 maps to socket 0 core 1 
+OMP: Info #171: KMP_AFFINITY: OS proc 2 maps to socket 0 core 2 
+OMP: Info #171: KMP_AFFINITY: OS proc 3 maps to socket 0 core 3 
+OMP: Info #171: KMP_AFFINITY: OS proc 4 maps to socket 0 core 4 
+OMP: Info #252: KMP_AFFINITY: pid 255932 tid 255932 thread 0 bound to OS proc set 1
+2021-02-18 18:32:53.289114: I tensorflow/core/common_runtime/process_util.cc:115] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+OMP: Info #252: KMP_AFFINITY: pid 255932 tid 256043 thread 1 bound to OS proc set 2
+/home/jaulicino/scratch-midway2/BBA/3_DESRES-Trajectory_1FME-1-protein/DESRES-Trajectory_1FME-1-protein/1FME-1-protein/system.pdb
+/home/jaulicino/scratch-midway2/BBA/3_DESRES-Trajectory_1FME-1-protein/DESRES-Trajectory_1FME-1-protein/1FME-1-protein/system.pdb
+18-02-21 18:33:24 pyemma.coordinates.data.featurization.featurizer.MDFeaturizer[0] WARNING  The 1D arrays input for add_inverse_distances() have been sorted, and index duplicates have been eliminated.
+Check the output of describe() to see the actual order of the features
+/tmp/slurmd/job9105712/slurm_script: line 10: 255932 Killed                  python bba_weights_2.py
+slurmstepd-midway-l16b-24: error: Detected 1 oom-kill event(s) in step 9105712.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
